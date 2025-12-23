@@ -51,6 +51,14 @@ public class PlaceService {
         dto.setOpeningHours(place.getOpeningHours());
         dto.setPhone(place.getPhone());
         dto.setWebsiteUrl(place.getWebsiteUrl());
+        dto.setDescription(place.getDescription());
         return dto;
     }
+    public PlaceResponseDto getById(Integer id) {
+    Place place = placeRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Place not found with id: " + id));
+
+    return mapToDto(place);
+}
+
 }

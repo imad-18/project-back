@@ -112,4 +112,5 @@ public class PlaceResponseDto {
     public void setWebsiteUrl(String websiteUrl) {
         this.websiteUrl = websiteUrl;
     }
+   
 }

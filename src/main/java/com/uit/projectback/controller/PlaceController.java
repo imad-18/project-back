@@ -34,4 +34,11 @@ public class PlaceController {
     public List<PlaceResponseDto> search(@RequestParam String q) {
         return placeService.search(q);
     }
+
+    // 🔹 Détails d’un lieu
+    @GetMapping("/{id}")
+    public PlaceResponseDto getPlaceById(@PathVariable Integer id) {
+    return placeService.getById(id);
+}
+
 }
