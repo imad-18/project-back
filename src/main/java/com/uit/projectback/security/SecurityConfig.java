@@ -19,12 +19,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .cors().and() // 🔹 autorise CORS
+                // 🔹 autorise CORS
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/register", "/api/users/login", "/api/places/**").permitAll() // public
-                        .anyRequest().authenticated())
-                .httpBasic().disable(); // 🔹 désactive httpBasic pour que le navigateur ne demande pas login
-
+                        .requestMatchers("/api/users/register",
+                                "/api/users/login",
+                                "/api/places/**",
+                                "/accommodations/**").permitAll() // public
+                        .anyRequest().authenticated());
         return http.build();
     }
 
