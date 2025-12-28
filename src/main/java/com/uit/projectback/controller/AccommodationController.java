@@ -12,7 +12,9 @@ import java.util.List;
 @RequestMapping("/accommodations")
 @CrossOrigin("*") // Android
 public class AccommodationController {
+
     private AccommodationService accommodationService;
+
     public AccommodationController(AccommodationService accommodationService) {
         this.accommodationService = accommodationService;
     }

@@ -24,7 +24,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/register",
                                 "/api/users/login",
                                 "/api/places/**",
-                                "/accommodations/**").permitAll() // public
+                                "/accommodations/**",
+                                "/transports/**").permitAll() // public
                         .anyRequest().authenticated());
         return http.build();
     }
