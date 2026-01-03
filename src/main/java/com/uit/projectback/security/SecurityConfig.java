@@ -25,7 +25,8 @@ public class SecurityConfig {
                                 "/api/users/login",
                                 "/api/places/**",
                                 "/accommodations/**",
-                                "/transports/**").permitAll() // public
+                                "/transports/**",
+                                "/events/**").permitAll() // public
                         .anyRequest().authenticated());
         return http.build();
     }
