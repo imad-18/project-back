@@ -5,6 +5,8 @@ import com.uit.projectback.model.FavoriteModel;
 import com.uit.projectback.repository.FavoriteRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FavoriteService {
     private FavoriteRepository favoriteRepository;
@@ -22,5 +24,9 @@ public class FavoriteService {
                                 new FavoriteModel(userId, entityType, entityId)
                         )
                 );
+    }
+
+    public List<FavoriteModel> getFavoritesByUserId(Long userId) {
+        return favoriteRepository.findByUserId(userId);
     }
 }
