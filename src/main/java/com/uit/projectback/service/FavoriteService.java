@@ -29,4 +29,12 @@ public class FavoriteService {
     public List<FavoriteModel> getFavoritesByUserId(Long userId) {
         return favoriteRepository.findByUserId(userId);
     }
+
+    public List<FavoriteModel> getFavoritesByUserIdAndEntityType(Long userId, EntityType entityType) {
+        return favoriteRepository.findByUserIdAndEntityType(userId, entityType);
+    }
+
+    public void removeFavorite(Long userId, EntityType entityType, Long entityId) {
+        favoriteRepository.deleteByUserIdAndEntityTypeAndEntityId(userId, entityType, entityId);
+    }
 }
