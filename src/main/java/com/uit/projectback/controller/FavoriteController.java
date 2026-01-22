@@ -1,5 +1,6 @@
 package com.uit.projectback.controller;
 
+import com.uit.projectback.dto.FavoriteResponseDto;
 import com.uit.projectback.model.EntityType;
 import com.uit.projectback.model.FavoriteModel;
 import com.uit.projectback.service.FavoriteService;
@@ -33,7 +34,7 @@ public class FavoriteController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<List<FavoriteModel>> getFavoritesByUserId(
+    public ResponseEntity<List<FavoriteResponseDto>> getFavoritesByUserId(
             @PathVariable Long userId
     ) {
         return ResponseEntity.ok(favoriteService.getFavoritesByUserId(userId));
