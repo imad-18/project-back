@@ -1,5 +1,6 @@
 package com.uit.projectback.controller;
 
+import com.uit.projectback.dto.FavoriteRequestDto;
 import com.uit.projectback.dto.FavoriteResponseDto;
 import com.uit.projectback.model.EntityType;
 import com.uit.projectback.model.FavoriteModel;
@@ -20,7 +21,7 @@ public class FavoriteController {
         this.favoriteService = favoriteService;
     }
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<FavoriteModel> addFavorite(
             @RequestBody FavoriteModel request
     ) {
@@ -31,6 +32,19 @@ public class FavoriteController {
         );
 
         return ResponseEntity.ok(favorite);
+    }*/
+
+    @PostMapping
+    public ResponseEntity<FavoriteResponseDto> addFavorite(
+            @RequestBody FavoriteRequestDto request
+    ) {
+        FavoriteResponseDto response = favoriteService.addFavorite(
+                request.getUserId(),
+                request.getEntityType(),
+                request.getEntityId()
+        );
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{userId}")

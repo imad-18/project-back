@@ -29,7 +29,7 @@ public class FavoriteService {
         this.transportRepository = transportRepository;
     }
 
-    public FavoriteModel addFavorite(Long userId, EntityType entityType, Long entityId) {
+    /*public FavoriteModel addFavorite(Long userId, EntityType entityType, Long entityId) {
 
         return favoriteRepository
                 .findByUserIdAndEntityTypeAndEntityId(userId, entityType, entityId)
@@ -38,6 +38,49 @@ public class FavoriteService {
                                 new FavoriteModel(userId, entityType, entityId)
                         )
                 );
+    }*/
+
+    public FavoriteResponseDto addFavorite(Long userId, EntityType entityType, Long entityId) {
+
+        FavoriteModel favorite = favoriteRepository
+                .findByUserIdAndEntityTypeAndEntityId(userId, entityType, entityId)
+                .orElseGet(() ->
+                        favoriteRepository.save(
+                                new FavoriteModel(userId, entityType, entityId)
+                        )
+                );
+
+        // Build response DTO
+        FavoriteResponseDto dto = new FavoriteResponseDto();
+        dto.setFavoriteId(favorite.getId());
+        dto.setEntityType(favorite.getEntityType());
+        dto.setCreatedAt(favorite.getCreatedAt());
+
+        switch (favorite.getEntityType()) {
+
+            case PLACE -> {
+                Place place = placeRepository
+                        .findById(entityId.intValue())
+                        .orElseThrow(() -> new RuntimeException("Place not found"));
+                dto.setPlace(mapPlaceToDto(place));
+            }
+
+            case ACCOMMODATION -> {
+                AccommodationModel acc = accommodationRepository
+                        .findById(entityId.intValue())
+                        .orElseThrow(() -> new RuntimeException("Accommodation not found"));
+                dto.setAccommodation(mapAccommodationToDto(acc));
+            }
+
+            case TRANSPORT -> {
+                TransportModel transport = transportRepository
+                        .findById(entityId.intValue())
+                        .orElseThrow(() -> new RuntimeException("Transport not found"));
+                dto.setTransport(mapTransportToDto(transport));
+            }
+        }
+
+        return dto;
     }
 
     public List<FavoriteResponseDto> getFavoritesByUserId(Long userId) {
